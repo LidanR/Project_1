@@ -1,8 +1,8 @@
 #include <iostream>
-
+#include "EasyToCode.h"
 
 int main()
 {
-	std::cout << "Hello";
+	
 	return 0;
 }
