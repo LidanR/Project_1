@@ -1,3 +1,4 @@
+
 var Class - Versatile variable Wrapper
 
 The var class provides a flexible data container that can hold different types of values, including int, float, double, char, bool, and char*.
@@ -12,107 +13,98 @@ Features
 - Type Conversion Methods: Methods to convert var to specific types (e.g., toInt(), toFloat(), toDouble(), etc.).
 - Type Information: Method to get the type of the stored value.
 
-Usage
-
-1. Creating and Assigning Values to var
-You can create var instances with various types as follows:
-
---------------------------------------------------------------------------------------------------
-var var1 = 42;         // Holds an int
-var var2 = 3.14f;      // Holds a float
-var var3 = 2.718;      // Holds a double
-var var4 = 'A';        // Holds a char
-var var5 = true;       // Holds a bool
-var var6 = "Hello";    // Holds a char* (string)
---------------------------------------------------------------------------------------------------
-
-Alternatively, you can use assignment after creating an empty var:
-
---------------------------------------------------------------------------------------------------
-var var;
-var = 100;            // Assign an int
-var = 1.618f;         // Assign a float
-var = "World";        // Assign a char* (string)
---------------------------------------------------------------------------------------------------
-
-2. Printing Values
-To print the value held by a var object, use std::cout:
-
---------------------------------------------------------------------------------------------------
-std::cout << var1 << std::endl; // Output depends on the type held by var1
---------------------------------------------------------------------------------------------------
-
-3. Arithmetic Operations
-The var class supports arithmetic operations between compatible types (e.g., int with float, double with int).
-When performing operations on two var objects, the result type will depend on the types being operated on:
-
---------------------------------------------------------------------------------------------------
-var var1 = 5;
-var var2 = 10.5;
-var result = var1 + var2;   // result now holds 15.5 (float)
-result = var1 - var2;       // result now holds -5.5 (float)
-result = var1 * var2;       // result now holds 52.5 (float)
-result = var1 / var2;       // result now holds 0.47619 (float)
---------------------------------------------------------------------------------------------------
-
-For char* (strings), + performs concatenation.
-
-4. Comparison Operations
-The var class supports comparison operations:
-
---------------------------------------------------------------------------------------------------
-var var1 = 5;
-var var2 = 10;
-bool isEqual = (var1 == var2);   // false
-bool isNotEqual = (var1 != var2); // true
-bool isLess = (var1 < var2);     // true
---------------------------------------------------------------------------------------------------
-
-5. Type Conversion
-You can convert a var object to a specific type using the provided methods:
-
---------------------------------------------------------------------------------------------------
-var var = 42;
-int intValue = var.toInt();      // intValue is 42
---------------------------------------------------------------------------------------------------
-
-6. Clearing and Reassigning Types
-The var class automatically clears the previous value when a new type is assigned. For example:
-
---------------------------------------------------------------------------------------------------
-var var = 123;
-var = "New string";   // Clears the int and sets var to hold a char*
---------------------------------------------------------------------------------------------------
-
-7. Getting Type Information
-You can get the type of the stored value using the getType() method:
-
---------------------------------------------------------------------------------------------------
-var var = 42;
-Parameters type = var.getType(); // type is INT
---------------------------------------------------------------------------------------------------
-
-Example Usage:
-
---------------------------------------------------------------------------------------------------
-#include <iostream>
-#include "EasyToCode.h"
-
-int main() {
-    var var1 = 5;
-    var var2 = 10.5;
-    var result = var1 + var2;   // result is 15.5
-
-    var greeting = "Hello, ";
-    var name = "World!";
-    var message = greeting + name; // Concatenates strings
-
-    std::cout << "Result: " << result << std::endl;      // Output: 15.5
-    std::cout << "Message: " << message << std::endl;    // Output: Hello, World!
-}
---------------------------------------------------------------------------------------------------
-
 Notes
 - Character Pointer (char*) Management: If you use char*, be cautious about memory management since each new string assignment allocates memory.
 - Destruction: The destructor automatically clears any allocated memory for char* types.
 Thank you for using EasyToCode!
+
+Example usage of the var class:
+-------------------------------------------------------------------------------------------
+#include <iostream>
+#include "EasyToCode.h"
+
+using namespace std;
+
+int main() {
+    // Creating and Assigning Values to var
+    var var1 = 42;         // Holds an int
+    var var2 = 3.14f;      // Holds a float
+    var var3 = 2.718;      // Holds a double
+    var var4 = 'A';        // Holds a char
+    var var5 = true;       // Holds a bool
+    var var6 = "Hello";    // Holds a char* (string)
+
+    // Printing Values
+    cout << "var1: " << var1 << endl;
+    cout << "var2: " << var2 << endl;
+    cout << "var3: " << var3 << endl;
+    cout << "var4: " << var4 << endl;
+    cout << "var5: " << var5 << endl;
+    cout << "var6: " << var6 << endl;
+
+    // Arithmetic Operations
+    var var7 = var1 + var2;   // result is 45.14 (float)
+    var var8 = var1 - var2;   // result is 38.86 (float)
+    var var9 = var1 * var2;   // result is 131.88 (float)
+    var var10 = var1 / var2;  // result is 13.3758 (float)
+
+    cout << "var7 (var1 + var2): " << var7 << endl;
+    cout << "var8 (var1 - var2): " << var8 << endl;
+    cout << "var9 (var1 * var2): " << var9 << endl;
+    cout << "var10 (var1 / var2): " << var10 << endl;
+
+    // String Concatenation
+    var greeting = "Hello, ";
+    var name = "World!";
+    var message = greeting + name; // Concatenates strings
+
+    cout << "Message: " << message << endl;
+
+    // Comparison Operations
+    var var11 = 5;
+    var var12 = 10;
+    bool isEqual = (var11 == var12);   // false
+    bool isNotEqual = (var11 != var12); // true
+    bool isLess = (var11 < var12);     // true
+
+    cout << "isEqual (var11 == var12): " << isEqual << endl;
+    cout << "isNotEqual (var11 != var12): " << isNotEqual << endl;
+    cout << "isLess (var11 < var12): " << isLess << endl;
+
+    // Type Conversion
+    var var13 = 42;
+    int intValue = var13.toInt();      // intValue is 42
+    cout << "intValue: " << intValue << endl;
+
+    // Clearing and Reassigning Types
+    var var14 = 123;
+    cout << "var14 before: " << var14 << endl;
+    var14 = "New string";   // Clears the int and sets var to hold a char*
+    cout << "var14 after: " << var14 << endl;
+
+    // Getting Type Information
+    var var15 = 42;
+    Parameters type = var15.getType(); // type is INT
+    cout << "var15 type: " << type << endl;
+
+    // Accessing Characters
+    var var16 = "Hello";
+    cout << "var16[1]: " << var16[1] << endl; // Output: e
+
+    // Getting Length
+    var var17 = 1234;
+    cout << "Length of var17: " << var17.length() << endl; // Output: 4
+
+    var var18 = 23.45f;
+    cout << "Length of var18: " << var18.length() << endl; // Output: 5
+
+    var var19 = true;
+    cout << "Length of var19: " << var19.length() << endl; // Output: 4
+
+    var var20 = false;
+    cout << "Length of var20: " << var20.length() << endl; // Output: 5
+
+    return 0;
+}
+-------------------------------------------------------------------------------------------
+*/

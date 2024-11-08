@@ -556,10 +556,6 @@ public:
         return *this;
     }
 
-
-
-
-
     // Output operator <<
     friend std::ostream& operator<<(std::ostream& input, const var& var) {
         switch (var.typeOfParameter) {
@@ -643,7 +639,7 @@ public:
     }
 
 
-    //
+    
     // Subtraction Operator
     var operator-(const var& other) {
         var temp;
@@ -1284,6 +1280,163 @@ public:
         return *this;
     }
 
+    mutable std::string tempStr;  // Temporary storage for conversions
+
+    char& operator[](std::size_t index) {
+        static char dummy = '-';
+
+        switch (typeOfParameter) {
+        case CHAR_PTR:
+            if (type.charPtr != nullptr) {
+                return type.charPtr[index];
+            }
+            break;
+        case INT:
+            tempStr = std::to_string(type.intNum);
+            break;
+        case FLOAT:
+            tempStr = std::to_string(type.floatNum);
+            break;
+        case DOUBLE:
+            tempStr = std::to_string(type.doubleNum);
+            break;
+        case CHAR:
+            tempStr = std::string(1, type.charVal);
+            break;
+        case BOOL:
+            tempStr = type.boolVal ? "true" : "false";
+            break;
+        default:
+            return dummy;
+        }
+
+        if (index < tempStr.size()) {
+            return tempStr[index];
+        }
+        return dummy;
+    }
+
+    const char& operator[](std::size_t index) const {
+        static char dummy = '-';
+
+        switch (typeOfParameter) {
+        case CHAR_PTR:
+            if (type.charPtr != nullptr) {
+                return type.charPtr[index];
+            }
+            break;
+        case INT:
+            tempStr = std::to_string(type.intNum);
+            break;
+        case FLOAT:
+            tempStr = std::to_string(type.floatNum);
+            break;
+        case DOUBLE:
+            tempStr = std::to_string(type.doubleNum);
+            break;
+        case CHAR:
+            tempStr = std::string(1, type.charVal);
+            break;
+        case BOOL:
+            tempStr = type.boolVal ? "true" : "false";
+            break;
+        default:
+            return dummy;
+        }
+
+        if (index < tempStr.size()) {
+            return tempStr[index];
+        }
+        return dummy;
+    }
+
+
+    std::size_t size() const {
+        std::string str;
+        switch (typeOfParameter) {
+        case INT:
+            str = std::to_string(type.intNum);
+            break;
+        case FLOAT:
+            str = std::to_string(type.floatNum);
+            break;
+        case DOUBLE:
+            str = std::to_string(type.doubleNum);
+            break;
+        case CHAR:
+            str = std::string(1, type.charVal);
+            break;
+        case BOOL:
+            str = type.boolVal ? "true" : "false";
+            break;
+        case CHAR_PTR:
+            if (type.charPtr != nullptr) {
+                str = std::string(type.charPtr);
+            }
+            break;
+        default:
+            return 0;
+        }
+        return str.size();
+    }
+
+    void print() const {
+		std::cout << "Type: ";
+        switch (typeOfParameter) {
+        case NONE:
+            std::cout << "None";
+            break;
+        case INT:
+            std::cout << "int";
+            break;
+        case FLOAT:
+            std::cout << "float";
+            break;
+        case DOUBLE:
+            std::cout << "double";
+            break;
+        case CHAR:
+            std::cout << "char";
+            break;
+        case BOOL:
+            std::cout << "bool";
+            break;
+        case CHAR_PTR:
+            std::cout << "char*/string";
+            break;
+        default:
+            std::cout << "Unknown type";
+            break;
+        }
+        std::cout <<std::endl<< "value: ";
+        switch (typeOfParameter) {
+        case NONE:
+            std::cout << "- - -";
+            break;
+        case INT:
+            std::cout << type.intNum;
+            break;
+        case FLOAT:
+            std::cout << type.floatNum;
+            break;
+        case DOUBLE:
+            std::cout << type.doubleNum;
+            break;
+        case CHAR:
+            std::cout << type.charVal;
+            break;
+        case BOOL:
+            std::cout << (type.boolVal ? "true" : "false");
+            break;
+        case CHAR_PTR:
+            std::cout << type.charPtr;
+            break;
+        default:
+            std::cout << "Unknown type";
+            break;
+        }
+        std::cout << std::endl;
+    }
 };
 
 
