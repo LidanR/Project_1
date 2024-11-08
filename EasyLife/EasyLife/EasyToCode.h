@@ -3,9 +3,6 @@
 #include <string>
 
 #pragma once
-
-
-
 class var {
 private:
     enum Parameters {
@@ -1350,6 +1347,77 @@ public:
         return dummy;
     }
 
+    // Prefix increment operator
+    var& operator++() {
+        switch (typeOfParameter) {
+        case INT:
+            ++type.intNum;
+            break;
+        case FLOAT:
+            ++type.floatNum;
+            break;
+        case DOUBLE:
+            ++type.doubleNum;
+            break;
+        case CHAR:
+            ++type.charVal;
+            break;
+        case BOOL:
+            type.boolVal = !type.boolVal;
+            break;
+        case CHAR_PTR:
+            for (size_t i = 0; i < std::strlen(type.charPtr); ++i) {
+                ++type.charPtr[i];
+            }
+            break;
+        default:
+            break;
+        }
+        return *this;
+    }
+
+    // Prefix decrement operator
+    var& operator--() {
+        switch (typeOfParameter) {
+        case INT:
+            --type.intNum;
+            break;
+        case FLOAT:
+            --type.floatNum;
+            break;
+        case DOUBLE:
+            --type.doubleNum;
+            break;
+        case CHAR:
+            --type.charVal;
+            break;
+        case BOOL:
+            type.boolVal = !type.boolVal;
+            break;
+        case CHAR_PTR:
+            for (size_t i = 0; i < std::strlen(type.charPtr); ++i) {
+                --type.charPtr[i];
+            }
+            break;
+        default:
+            break;
+        }
+        return *this;
+    }
+
+    // Postfix increment operator
+    var operator++(int) {
+        var temp = *this;
+        ++(*this);
+        return temp;
+    }
+
+    // Postfix decrement operator
+    var operator--(int) {
+        var temp = *this;
+        --(*this);
+        return temp;
+    }
 
     std::size_t size() const {
         std::string str;
